@@ -1,7 +1,9 @@
+#!/usr/bin/env python3
 """ Builds snippets from terraform's documentation """
 import os
 import re
 import json
+import click
 import yamldown
 import mistune
 from jinja2 import Template
@@ -11,14 +13,42 @@ OPTIONAL_REGEX = re.compile(r'[^(]+\((Optional)\)')
 REQUIRED_REGEX = re.compile(r'[^(]+\((Required)\)')
 DESCRIPTION_REGEX = re.compile(r'[^(]+\([^)]+\) (.*)')
 SNIPPETS = dict()
-SNIPPET_TEMPLATE = """{{object_type}} "{{name}}" "name" {
+SNIPPET_TEMPLATE = """{{object_type}} "{{name}}" "$1" {
 {%- for argument in arguments %}
     # {{ argument['text'] }}
     {{argument['name']}} = ""
-{% endfor -%}
+{% endfor %}
+    # Exported Attributes
+{%- for attribute in attributes %}
+    # {{attribute}}
+{%- endfor %}
 }
 """
 
+
+@click.command()
+@click.argument('source', type=click.Path(exists=True))
+@click.argument('target', type=click.Path(exists=True))
+def build(source, target):
+    """ Root command for click CLI tool """
+    provider_list = os.listdir(source)
+    for provider in provider_list:
+        provider_docs_dir = "{}/{}/website/docs".format(source, provider)
+        for _dirname, subdirlist, _filelist in os.walk(provider_docs_dir):
+            if 'd' in subdirlist:
+                subdir = "{}/d".format(provider_docs_dir)
+                process_directory('data', subdir, os.listdir(subdir))
+            if 'r' in subdirlist:
+                subdir = "{}/r".format(provider_docs_dir)
+                process_directory('resource', subdir, os.listdir(subdir))
+        target_file = "{target}/{provider}.json".format(
+            target=target,
+            provider=provider
+        )
+        with open(target_file, 'w') as f:
+            print("Writing snippets for {provider} to {target_file}".format(
+                target_file=target_file, provider=provider))
+            f.write(json.dumps(SNIPPETS, indent=4, sort_keys=True))
 
 def process_directory(object_type, prefix, files):
     """ Processes a single directory """
@@ -35,11 +65,13 @@ def process_directory(object_type, prefix, files):
         doc = process_documentation(markdown)
         arguments = doc.get('Argument Reference', [])
         description = ' '.join(doc['Description'])
-
+        attributes = [x.replace('`', '"') for x 
+                      in doc.get('Attributes Reference', [])
+                      if x.startswith('`')]
         SNIPPETS[snippet_name] = dict(
             prefix=snippet_name,
             description=description,
-            body=generate_body(object_type, resource_name, arguments))
+            body=generate_body(object_type, resource_name, arguments, attributes))
 
 
 def process_documentation(markdown):
@@ -69,54 +101,47 @@ def process_documentation(markdown):
     return result
 
 
-def generate_body(object_type, resource_name, arguments):
+def generate_body(object_type, resource_name, arguments, attributes):
     """ Generates a snipped body from the details """
     parsed_arguments = []
     for argument in arguments:
         if not NAME_REGEX.match(argument):
             continue
-        try:
-            result = dict()
-            result['name'] = NAME_REGEX.match(argument)[1]
-            # if result['name'] == 'name_regex':
-            #     import ipdb; ipdb.set_trace()
-            if OPTIONAL_REGEX.match(argument):
-                result['optional'] = OPTIONAL_REGEX.match(argument)[1]
-                if DESCRIPTION_REGEX.match(argument):
-                    result['description'] = DESCRIPTION_REGEX.match(argument)[
-                        1]
-                else:
-                    result['description'] = ''
-            elif REQUIRED_REGEX.match(argument):
-                result['optional'] = REQUIRED_REGEX.match(argument)[1]
-                if DESCRIPTION_REGEX.match(argument):
-                    result['description'] = DESCRIPTION_REGEX.match(argument)[
-                        1]
-                else:
-                    result['description'] = ''
+        result = dict()
+        result['name'] = NAME_REGEX.match(argument)[1]
+        # if result['name'] == 'name_regex':
+        #     import ipdb; ipdb.set_trace()
+        if OPTIONAL_REGEX.match(argument):
+            result['optional'] = OPTIONAL_REGEX.match(argument)[1]
+            if DESCRIPTION_REGEX.match(argument):
+                result['description'] = DESCRIPTION_REGEX.match(argument)[
+                    1]
             else:
-                result['optional'] = "Optional"
-                result['description'] = argument.split(' - ')[-1]
-            result['text'] = "{name} - ({optional}) {description}".format(
-                **result)
+                result['description'] = ''
+        elif REQUIRED_REGEX.match(argument):
+            result['optional'] = REQUIRED_REGEX.match(argument)[1]
+            if DESCRIPTION_REGEX.match(argument):
+                result['description'] = DESCRIPTION_REGEX.match(argument)[
+                    1]
+            else:
+                result['description'] = ''
+        else:
+            result['optional'] = "Optional"
+            result['description'] = argument.split(' - ')[-1]
+        result['text'] = "{name} - ({optional}) {description}".format(
+            **result)
+        if result['optional'] == 'Optional':
             parsed_arguments.append(result)
-        except Exception as e:
-            import ipdb
-            ipdb.set_trace()
-            print(e)
+        else:
+            parsed_arguments.insert(0, result)
 
     template_arguments = dict(
         object_type=object_type,
         name=resource_name,
         arguments=parsed_arguments,
+        attributes=attributes,
     )
     return Template(SNIPPET_TEMPLATE).render(template_arguments)
 
-
-for dirname, subdirlist, _filelist in os.walk('.'):
-    if 'd' in subdirlist:
-        process_directory('data', 'd', os.listdir('d'))
-    if 'r' in subdirlist:
-        process_directory('resource', 'r', os.listdir('r'))
-
-print(json.dumps(SNIPPETS, indent=4, sort_keys=True))
+if __name__ == '__main__':
+    build()
