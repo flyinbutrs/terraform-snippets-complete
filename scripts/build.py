@@ -12,7 +12,7 @@ REQUIRED_REGEX = re.compile(r'[^(]+\((Required)\)')
 DESCRIPTION_REGEX = re.compile(r'[^(]+\([^)]+\) (.*)')
 SNIPPETS = dict()
 SNIPPET_TEMPLATE = """{{object_type}} "{{name}}" "name" {
-{% for argument in arguments -%}
+{%- for argument in arguments %}
     # {{ argument['text'] }}
     {{argument['name']}} = ""
 {% endfor -%}
@@ -34,7 +34,7 @@ def process_directory(object_type, prefix, files):
         resource_name = yml['page_title'].split()[-1]
         doc = process_documentation(markdown)
         arguments = doc.get('Argument Reference', [])
-        description = doc['Description']
+        description = ' '.join(doc['Description'])
 
         SNIPPETS[snippet_name] = dict(
             prefix=snippet_name,
