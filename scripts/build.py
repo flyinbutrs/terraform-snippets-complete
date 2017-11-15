@@ -12,7 +12,6 @@ NAME_REGEX = re.compile(r'`([a-z_]+)`')
 OPTIONAL_REGEX = re.compile(r'[^(]+\((Optional)\)')
 REQUIRED_REGEX = re.compile(r'[^(]+\((Required)\)')
 DESCRIPTION_REGEX = re.compile(r'[^(]+\([^)]+\) (.*)')
-SNIPPETS = dict()
 SNIPPET_TEMPLATE = """{{object_type}} "{{name}}" "$1" {
 {%- for argument in arguments %}
     # {{ argument['text'] }}
@@ -33,14 +32,15 @@ def build(source, target):
     """ Root command for click CLI tool """
     provider_list = os.listdir(source)
     for provider in provider_list:
+        snippets = dict()
         provider_docs_dir = "{}/{}/website/docs".format(source, provider)
         for _dirname, subdirlist, _filelist in os.walk(provider_docs_dir):
             if 'd' in subdirlist:
                 subdir = "{}/d".format(provider_docs_dir)
-                process_directory('data', subdir, os.listdir(subdir))
+                process_directory('data', subdir, os.listdir(subdir), snippets)
             if 'r' in subdirlist:
                 subdir = "{}/r".format(provider_docs_dir)
-                process_directory('resource', subdir, os.listdir(subdir))
+                process_directory('resource', subdir, os.listdir(subdir), snippets)
         target_file = "{target}/{provider}.json".format(
             target=target,
             provider=provider
@@ -48,9 +48,9 @@ def build(source, target):
         with open(target_file, 'w') as f:
             print("Writing snippets for {provider} to {target_file}".format(
                 target_file=target_file, provider=provider))
-            f.write(json.dumps(SNIPPETS, indent=4, sort_keys=True))
+            f.write(json.dumps(snippets, indent=4, sort_keys=True))
 
-def process_directory(object_type, prefix, files):
+def process_directory(object_type, prefix, files, snippets):
     """ Processes a single directory """
     for filename in files:
         filepath = "/".join([prefix, filename])
@@ -65,10 +65,10 @@ def process_directory(object_type, prefix, files):
         doc = process_documentation(markdown)
         arguments = doc.get('Argument Reference', [])
         description = ' '.join(doc['Description'])
-        attributes = [x.replace('`', '"') for x 
+        attributes = [x.replace('`', '"') for x
                       in doc.get('Attributes Reference', [])
                       if x.startswith('`')]
-        SNIPPETS[snippet_name] = dict(
+        snippets[snippet_name] = dict(
             prefix=snippet_name,
             description=description,
             body=generate_body(object_type, resource_name, arguments, attributes))
@@ -128,8 +128,7 @@ def generate_body(object_type, resource_name, arguments, attributes):
         else:
             result['optional'] = "Optional"
             result['description'] = argument.split(' - ')[-1]
-        result['text'] = "{name} - ({optional}) {description}".format(
-            **result)
+        result['text'] = "{name} - ({optional}) {description}".format(**result)
         if result['optional'] == 'Optional':
             parsed_arguments.append(result)
         else:
