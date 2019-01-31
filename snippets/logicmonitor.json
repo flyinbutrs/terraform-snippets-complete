@@ -9,9 +9,14 @@
         "description": "Use this datasource to get the ID of an available device group.",
         "prefix": "logicmonitor-datasource-device-group"
     },
+    "logicmonitor-resource-collector": {
+        "body": "resource \"logicmonitor_collector\" \"$1\" {\n    # backup_collector_id - (Optional) The Id of the failover Collector configured for this Collector\n    backup_collector_id = \"\"\n\n    # collector_group_id - (Optional) The Id of the group the Collector is in\n    collector_group_id = \"\"\n\n    # description - (Optional) The Collector's description\n    description = \"\"\n\n    # enable_failback - (Optional) Whether or not automatic failback is enabled for the Collector\n    enable_failback = \"\"\n\n    # enable_collector_device_failover - (Optional) Whether or not the device the Collector is installed on is enabled for fail over\n    enable_collector_device_failover = \"\"\n\n    # escalation_chain_id - (Optional) The Id of the escalation chain associated with this Collector\n    escalation_chain_id = \"\"\n\n    # resend_interval - (Optional) The interval, in minutes, after which alert notifications for the Collector will be resent\n    resend_interval = \"\"\n\n    # suppress_alert_clear - (Optional) Whether alert clear notifications are suppressed for the Collector\n    suppress_alert_clear = \"\"\n\n    # Exported Attributes\n}",
+        "description": "Provides a LogicMonitor collector resource. This can be used to create and manage LogicMonitor collectors. *Note:* This resource will only create the collector device in your account. See [Downloading a Collector Installer](https://www.logicmonitor.com/support/rest-api-developers-guide/collectors/downloading-a-collector-installer/) for\ninformation on how to download and install an existing collector.",
+        "prefix": "logicmonitor-resource-collector"
+    },
     "logicmonitor-resource-collector-group": {
         "body": "resource \"logicmonitor_collector_group\" \"$1\" {\n    # name - (Required) Name of collector group\n    name = \"\"\n\n    # description - (Optional) Set description of collector group\n    description = \"\"\n\n    # Exported Attributes\n}",
-        "description": "Provides a LogicMonitor collector group resource. This can be used to create and manage LogicMonitor users",
+        "description": "Provides a LogicMonitor collector group resource. This can be used to create and manage LogicMonitor collector groups",
         "prefix": "logicmonitor-resource-collector-group"
     },
     "logicmonitor-resource-device-group": {

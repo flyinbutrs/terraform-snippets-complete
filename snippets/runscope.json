@@ -1,0 +1,47 @@
+{
+    "runscope-datasource-bucket": {
+        "body": "data \"runscope_bucket\" \"$1\" {\n    # key - (Required) The unique key of the bucket.\n    key = \"\"\n\n    # Exported Attributes\n    # \"id\" - The unique key of the found bucket.\n    # \"team_uuid\" - The team unique identifier that owns the bucket.\n    # \"name\" - Type name of the bucket.\n}",
+        "description": "Use this data source to get information about a specific [bucket](https://www.runscope.com/docs/api/buckets)\nthat you can use with other runscope resources.",
+        "prefix": "runscope-datasource-bucket"
+    },
+    "runscope-datasource-buckets": {
+        "body": "data \"runscope_buckets\" \"$1\" {\n    # filter - (Optional) Filter to reduce the list of buckets returned.\n    filter = \"\"\n\n    # name - (Optional) The name of the field to filter on, currently either: `key`, `name`.\n    name = \"\"\n\n    # values - (Optional) The list of values to match against\n    values = \"\"\n\n    # Exported Attributes\n    # \"keys\" - A list of the keys of matching buckets.\n}",
+        "description": "Use this data source to get information about matching [buckets](https://www.runscope.com/docs/api/buckets)\nthat you can use with other runscope resources.",
+        "prefix": "runscope-datasource-buckets"
+    },
+    "runscope-datasource-integration": {
+        "body": "data \"runscope_integration\" \"$1\" {\n    # type - (Required) Type of integration to lookup i.e. pagerduty\n    type = \"\"\n\n    # team_uuid - (Required) Your team unique identifier.\n    team_uuid = \"\"\n\n    # Exported Attributes\n    # \"id\" - The unique identifier of the found integration.\n}",
+        "description": "Use this data source to get information about a specific [integration](https://www.runscope.com/docs/api/integrations)\nthat you can with other runscope resources.",
+        "prefix": "runscope-datasource-integration"
+    },
+    "runscope-datasource-integrations": {
+        "body": "data \"runscope_integrations\" \"$1\" {\n    # filter - (Optional) Filter to reduce the list of integrations returned.\n    filter = \"\"\n\n    # name - (Optional) The name of the field to filter on, currently either: `id`, `type` or `description`.\n    name = \"\"\n\n    # values - (Optional) The list of values to match against\n    values = \"\"\n\n    # Exported Attributes\n    # \"id\" - The unique identifier of the found integration.\n}",
+        "description": "Use this data source to list all of your [integrations](https://www.runscope.com/docs/api/integrations)\nthat you can use with other runscope resources.",
+        "prefix": "runscope-datasource-integrations"
+    },
+    "runscope-resource-bucket": {
+        "body": "resource \"runscope_bucket\" \"$1\" {\n    # name - (Optional) (String, Required) The name of this bucket.\n    name = \"\"\n\n    # team_uuid - (Optional) (String, Required) Unique identifier for the team this bucket\n    team_uuid = \"\"\n\n    # Exported Attributes\n    # \"name\" - The name of this bucket.\n    # \"id\" - The ID of this bucket.\n    # \"team_uuid\" - Unique identifier for the team this bucket belongs to.\n}",
+        "description": "A [bucket](https://www.runscope.com/docs/api/buckets) resource.\n[Buckets](https://www.runscope.com/docs/buckets) are a simple way to\norganize your requests and tests.",
+        "prefix": "runscope-resource-bucket"
+    },
+    "runscope-resource-environment": {
+        "body": "resource \"runscope_environment\" \"$1\" {\n    # recipients - (Required) A list of recipients to notify, documented below\n    recipients = \"\"\n\n    # notify_threshold - (Required) An integer between 1 and 10 for use with the `notify_on settings`: only used when `threshold` and `switch` values are given\n    notify_threshold = \"\"\n\n    # notify_on - (Required) Upon completion of a test run Runscope will send email notifications, allowed values: `all`, `failures`, `threshold` or `switch`\n    notify_on = \"\"\n\n    # notify_all - (Required) Send an email to all team members according to the `notify_on` rules.\n    notify_all = \"\"\n\n    # uuid - (Required) The uuid of the remote agent\n    uuid = \"\"\n\n    # name - (Required) The name of the remote agent\n    name = \"\"\n\n    # name - (Required) The name of environment.\n    name = \"\"\n\n    # bucket_id - (Required) The id of the bucket to associate this environment with.\n    bucket_id = \"\"\n\n    # test_id - (Optional) The id of the test to associate this environment with.\n    test_id = \"\"\n\n    # script - (Optional) The [script](https://www.runscope.com/docs/api-testing/scripts#initial-script)\n    script = \"\"\n\n    # preserve_cookies - (Optional) If this is set to true, tests using this enviornment will manage cookies between steps.\n    preserve_cookies = \"\"\n\n    # initial_variables - (Optional) Map of keys and values being used for variables when the test begins.\n    initial_variables = \"\"\n\n    # integrations - (Optional) A list of integration ids to enable for test runs using this environment.\n    integrations = \"\"\n\n    # regions - (Optional) A list of [Runscope regions](https://www.runscope.com/docs/regions) to execute test runs in when using this environment.\n    regions = \"\"\n\n    # remote_agents - (Optional) A list of [Remote Agents](https://www.runscope.com/docs/api/agents) to execute test runs in when using this environment.\n    remote_agents = \"\"\n\n    # webhooks - (Optional) A list of URL's to send results to when test runs using this environment finish.\n    webhooks = \"\"\n\n    # emails - (Optional) A list of settings for sending email notifications upon completion of a test run using this environment. Emails block is documented below\n    emails = \"\"\n\n    # name - (Optional) The name of the person. \n    name = \"\"\n\n    # id - (Optional) The unique identifier for this person's account.\n    id = \"\"\n\n    # email - (Optional) The email address for this account.\n    email = \"\"\n\n    # Exported Attributes\n    # \"id\" - The ID of the environment.\n}",
+        "description": "An [environment](https://www.runscope.com/docs/api/environments) resource.\nAn [environment](https://www.runscope.com/docs/api-testing/environments)\nis is a group of configuration settings (initial variables, locations,\nnotifications, integrations, etc.) used when running a test.\nEvery test has at least one environment, but you can create additional\nenvironments as needed. For common settings (base URLs, API keys)\nthat you'd like to use across all tests within a bucket,\nuse a [Shared Environment](https://www.runscope.com/docs/api-testing/environments#shared).",
+        "prefix": "runscope-resource-environment"
+    },
+    "runscope-resource-schedule": {
+        "body": "resource \"runscope_schedule\" \"$1\" {\n    # interval - (Required) The schedule's interval, must be one of:\n    interval = \"\"\n\n    # environment_id - (Required) The id of the environment to use when running the test.\n    environment_id = \"\"\n\n    # test_id - (Required) The id of the test to associate this schedule with.\n    test_id = \"\"\n\n    # bucket_id - (Required) The id of the bucket to associate this schedule with.\n    bucket_id = \"\"\n\n    # note - (Optional) A human-friendly description for the schedule.\n    note = \"\"\n\n    # Exported Attributes\n    # \"id\" - The ID of the schedule.\n}",
+        "description": "A [schedule](https://www.runscope.com/docs/api/schedules) resource.\nTests can be scheduled to run on frequencies up to every minute.\nOne ore more schedules can be configured per test with each schedule\nusing a unique Test-specific or Shared [Environment](environment.html).",
+        "prefix": "runscope-resource-schedule"
+    },
+    "runscope-resource-step": {
+        "body": "resource \"runscope_step\" \"$1\" {\n    # step_type - (Required) The type of step.\n    step_type = \"\"\n\n    # test_id - (Required) The id of the test to associate this step with.\n    test_id = \"\"\n\n    # bucket_id - (Required) The id of the bucket to associate this step with.\n    bucket_id = \"\"\n\n    # note - (Optional) A comment attached to the test step.\n    note = \"\"\n\n    # Exported Attributes\n    # \"id\" - The ID of the step.\n}",
+        "description": "A [step](https://www.runscope.com/docs/api/steps) resource.\nAPI tests are comprised of a series of steps, most often HTTP requests.\nIn addition to requests, you can also add additional types of steps to\nyour tests like pauses and conditions.",
+        "prefix": "runscope-resource-step"
+    },
+    "runscope-resource-test": {
+        "body": "resource \"runscope_test\" \"$1\" {\n    # name - (Optional) (String, Required) The name of this test.\n    name = \"\"\n\n    # description - (Optional) (String, Optional) Human-readable description of the new test.\n    description = \"\"\n\n    # Exported Attributes\n    # \"id\" - The unique identifier for the test.\n    # \"name\" - The name of this test.\n    # \"description\" - Human-readable description of the new test.\n}",
+        "description": "A [test](https://www.runscope.com/docs/api/tests) resource.\n[Tests](https://www.runscope.com/docs/buckets) are made up of\na collection of [test steps](step.html) and an\n[environment](environment.html).",
+        "prefix": "runscope-resource-test"
+    }
+}

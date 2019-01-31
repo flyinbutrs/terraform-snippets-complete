@@ -1,0 +1,47 @@
+{
+    "selvpc-resource-resell-floatingip-v2": {
+        "body": "resource \"selvpc_resell_floatingip_v2\" \"$1\" {\n    # region - (Required) A region of where the floating IP resides. Changing this creates a new floating IP.\n    region = \"\"\n\n    # project_id - (Required) An associated Selectel VPC project. Changing this creates a new floating IP.\n    project_id = \"\"\n\n    # Exported Attributes\n    # \"port_id\" - Contains id of the Networking service port.\n    # \"floating_ip_address\" - Contains floating IP address.\n    # \"fixed_ip_address\" - Contains internal IP address of the Networking service port.\n    # \"status\" - Shows if the license is used or not.\n    # \"servers\" - Shows information about servers that use this floating IP. Contains \"id\", \"name\" and \"status\" fields.\n}",
+        "description": "Manages a V2 floatingip resource within Resell Selectel VPC.",
+        "prefix": "selvpc-resource-resell-floatingip-v2"
+    },
+    "selvpc-resource-resell-keypair-v2": {
+        "body": "resource \"selvpc_resell_keypair_v2\" \"$1\" {\n    # user_id - (Required) An associated Selectel VPC user. Changing this creates a new keypair.\n    user_id = \"\"\n\n    # public_key - (Required) A pregenerated OpenSSH-formatted public key. Changing this creates a new keypair.\n    public_key = \"\"\n\n    # name - (Required) Name of the keypair. Changing this creates a new keypair.\n    name = \"\"\n\n    # regions - (Optional) List of region names where keypair is need to be created. Keypair will be created in all available regions if omitted. Changing this creates a new keypair.\n    regions = \"\"\n\n    # Exported Attributes\n}",
+        "description": "Manages a V2 keypair resource within Resell Selectel VPC.",
+        "prefix": "selvpc-resource-resell-keypair-v2"
+    },
+    "selvpc-resource-resell-license-v2": {
+        "body": "resource \"selvpc_resell_license_v2\" \"$1\" {\n    # type - (Required) The type of license. Changing this creates a new license.\n    type = \"\"\n\n    # region - (Required) A region of where the license resides. Changing this creates a new license.\n    region = \"\"\n\n    # project_id - (Required) An associated Selectel VPC project. Changing this creates a new license.\n    project_id = \"\"\n\n    # Exported Attributes\n    # \"status\" - Shows if the license is used or not.\n    # \"servers\" - Shows information about servers that use this license. Contains \"id\", \"name\" and \"status\" fields.\n}",
+        "description": "Manages a V2 license resource within Resell Selectel VPC.",
+        "prefix": "selvpc-resource-resell-license-v2"
+    },
+    "selvpc-resource-resell-project-v2": {
+        "body": "resource \"selvpc_resell_project_v2\" \"$1\" {\n    # value - (Required) A value of the resource quota.\n    value = \"\"\n\n    # resource_quotas - (Required) An array of desired billing quotas for this particular resource. The structure is described below.\n    resource_quotas = \"\"\n\n    # resource_name - (Required) A name of the billing resource to set quotas for.\n    resource_name = \"\"\n\n    # name - (Required) The name of the project.\n    name = \"\"\n\n    # custom_url - (Optional) The custom url for the project. Needs to be the 3rd-level domain for the `selvpc.ru`. Example: `terraform-project-001.selvpc.ru`.\n    custom_url = \"\"\n\n    # theme - (Optional) An additional theme settings for this project. The structure is described below.\n    theme = \"\"\n\n    # auto_quotas - (Optional) A boolean parameter that specifies if project should get automatically calculated quotas.\n    auto_quotas = \"\"\n\n    # quotas - (Optional) An array of desired quotas for this project. The structure is described below.\n    quotas = \"\"\n\n    # color - (Optional) A background color in hex format.\n    color = \"\"\n\n    # logo - (Optional) An url of the project header logo.\n    logo = \"\"\n\n    # region - (Optional) A Selectel VPC region for the resource quota.\n    region = \"\"\n\n    # zone - (Optional) A Selectel VPC zone for the resource quota.\n    zone = \"\"\n\n    # Exported Attributes\n    # \"url\" - An url of the Selectel VP project. It is set by the Selectel and can't be changed by the user.\n    # \"enabled\" - Shows if project is active or it was disabled by the Selectel.\n    # \"all_quotas\" - Contains all quotas. They can differ from the configurable \"quota\" argument since the project will have all available resource quotas automatically applied.\n}",
+        "description": "Manages a V2 project resource within Resell Selectel VPC.",
+        "prefix": "selvpc-resource-resell-project-v2"
+    },
+    "selvpc-resource-resell-role-v2": {
+        "body": "resource \"selvpc_resell_role_v2\" \"$1\" {\n    # user_id - (Required) An associated Selectel VPC user. Changing this creates a new role.\n    user_id = \"\"\n\n    # project_id - (Required) An associated Selectel VPC project. Changing this creates a new role.\n    project_id = \"\"\n\n    # Exported Attributes\n}",
+        "description": "Manages a V2 role resource within Resell Selectel VPC.",
+        "prefix": "selvpc-resource-resell-role-v2"
+    },
+    "selvpc-resource-resell-subnet-v2": {
+        "body": "resource \"selvpc_resell_subnet_v2\" \"$1\" {\n    # region - (Required) A region of where the subnet resides. Changing this creates a new subnet.\n    region = \"\"\n\n    # project_id - (Required) An associated Selectel VPC project. Changing this creates a new subnet.\n    project_id = \"\"\n\n    # prefix_length - (Optional) A prefix length of the subnet. Defaults to 29. Changing this creates a new subnet.\n    prefix_length = \"\"\n\n    # ip_version - (Optional) A version of the IP protocol of the subnet. Defaults to \"ipv4\". Changing this creates a new subnet.\n    ip_version = \"\"\n\n    # Exported Attributes\n    # \"cidr\" - Shows subnet CIDR representation.\n    # \"network_id\" - Shows associated OpenStack Networking service network ID.\n    # \"subnet_id\" - Shows associated OpenStack Networking service subnet ID.\n    # \"status\" - Shows if the subnet is used or not.\n    # \"servers\" - Shows information about servers that use this subnet. Contains \"id\", \"name\" and \"status\" fields.\n}",
+        "description": "Manages a V2 subnet resource within Resell Selectel VPC.",
+        "prefix": "selvpc-resource-resell-subnet-v2"
+    },
+    "selvpc-resource-resell-token-v2": {
+        "body": "resource \"selvpc_resell_token_v2\" \"$1\" {\n    # project_id - (Optional) An associated Selectel VPC project. Changing this creates a new token.\n    project_id = \"\"\n\n    # account_name - (Optional) An associated Selectel VPC account. Changing this creates a new token.\n    account_name = \"\"\n\n    # Exported Attributes\n}",
+        "description": "Manages a V2 token resource within Resell Selectel VPC. ID of this resource can be used within the OpenStack API Identity service as\nthe `X-Auth-Token` value.",
+        "prefix": "selvpc-resource-resell-token-v2"
+    },
+    "selvpc-resource-resell-user-v2": {
+        "body": "resource \"selvpc_resell_user_v2\" \"$1\" {\n    # password - (Required) Password of the user. Changing this updates the password of the existing user.\n    password = \"\"\n\n    # name - (Required) Name of the user. Changing this updates the name of the existing user.\n    name = \"\"\n\n    # enabled - (Optional) Enabled state of the user. Changing this updates the enabled state of the existing user.\n    enabled = \"\"\n\n    # Exported Attributes\n}",
+        "description": "Manages a V2 user resource within Resell Selectel VPC.",
+        "prefix": "selvpc-resource-resell-user-v2"
+    },
+    "selvpc-resource-resell-vrrp-subnet-v2": {
+        "body": "resource \"selvpc_resell_vrrp_subnet_v2\" \"$1\" {\n    # slave_region - (Required) A slave region of where the VRRP subnet resides. Changing this creates a new VRRP subnet.\n    slave_region = \"\"\n\n    # master_region - (Required) A master region of where the VRRP subnet resides. Changing this creates a new VRRP subnet.\n    master_region = \"\"\n\n    # project_id - (Required) An associated Selectel VPC project. Changing this creates a new VRRP subnet.\n    project_id = \"\"\n\n    # prefix_length - (Optional) A prefix length of the VRRP subnet. Defaults to 29. Changing this creates a new VRRP subnet.\n    prefix_length = \"\"\n\n    # ip_version - (Optional) A version of the IP protocol of the VRRP subnet. Defaults to \"ipv4\". Changing this creates a new VRRP subnet.\n    ip_version = \"\"\n\n    # Exported Attributes\n    # \"cidr\" - Shows VRRP subnet CIDR representation.\n    # \"subnets\" - Shows information about OpenStack Networking subnets that use this VRRP subnet. Contains \"network_id\", \"subnet_id\" and \"region\" fields.\n    # \"status\" - Shows if the VRRP subnet is used or not.\n    # \"servers\" - Shows information about servers that use this VRRP subnet. Contains \"id\", \"name\" and \"status\" fields.\n}",
+        "description": "Manages a V2 VRRP subnet resource within Resell Selectel VPC.",
+        "prefix": "selvpc-resource-resell-vrrp-subnet-v2"
+    }
+}

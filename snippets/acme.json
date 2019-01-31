@@ -1,0 +1,12 @@
+{
+    "acme-resource-certificate": {
+        "body": "resource \"acme_certificate\" \"$1\" {\n    # dns_challenge - (Required) - The [DNS challenge](#using-dns-challenges) to use\n    dns_challenge = \"\"\n\n    # account_key_pem - (Required) - The private key of the account that is\n    account_key_pem = \"\"\n\n    # common_name - (Optional) The certificate's common name, the primary domain that the\n    common_name = \"\"\n\n    # subject_alternative_names - (Optional) The certificate's subject alternative names,\n    subject_alternative_names = \"\"\n\n    # key_type - (Optional) The key type for the certificate's private key. Can be one of:\n    key_type = \"\"\n\n    # certificate_request_pem - (Optional) A pre-created certificate request, such as one\n    certificate_request_pem = \"\"\n\n    # key_type - (Optional) `key_type`, and optionally `subject_alternative_names`) need to be specified.\n    key_type = \"\"\n\n    # must_staple - (Optional) Enables the [OCSP Stapling Required][ocsp-stapling]\n    must_staple = \"\"\n\n    # min_days_remaining - (Optional) - The minimum amount of days remaining on the\n    min_days_remaining = \"\"\n\n    # Exported Attributes\n}",
+        "description": "The `acme_certificate` resource can be used to create and manage an ACME TLS\ncertificate. -> **NOTE:** As the usage model of Terraform generally sees it as being run on\na different server than a certificate would normally be placed on, the\n`acme_certifiate` resource only supports DNS challenges.",
+        "prefix": "acme-resource-certificate"
+    },
+    "acme-resource-registration": {
+        "body": "resource \"acme_registration\" \"$1\" {\n    # email_address - (Required) - The contact email address for the account.\n    email_address = \"\"\n\n    # account_key_pem - (Required) - The private key used to identity the account.\n    account_key_pem = \"\"\n\n    # Exported Attributes\n}",
+        "description": "The `acme_registration` resource can be used to create and manage accounts on an\nACME server. Once registered, the same private key that has been used for\nregistration can be used to request authorizations for certificates. -> This resource is named `acme_registration` for historical reasons - in the\nACME v1 spec, a _registration_ referred to the account entity.  This resource\nname is stable and more than likely will not change until a later major version\nof the provider, if at all.",
+        "prefix": "acme-resource-registration"
+    }
+}

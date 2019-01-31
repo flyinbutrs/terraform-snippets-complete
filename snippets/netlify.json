@@ -1,0 +1,22 @@
+{
+    "netlify-resource-build-hook": {
+        "body": "resource \"netlify_build_hook\" \"$1\" {\n    # title - (Required) name of the webhook - this is purely for organization and\n    title = \"\"\n\n    # branch - (Required) branch to be built when the hook is triggered\n    branch = \"\"\n\n    # site_id - (Required) Your netlify site's unique id\n    site_id = \"\"\n\n    # Exported Attributes\n}",
+        "description": "Manages build hooks, also known as [incoming webhooks]\n(https://www.netlify.com/docs/webhooks/#outgoing-webhooks). These can,\nat the time of writing, only be used to trigger new builds of the site.\nTo create one, provide your site id along with the name of the hook, and\nthe branch to be built when the hook is triggered.",
+        "prefix": "netlify-resource-build-hook"
+    },
+    "netlify-resource-deploy-key": {
+        "body": "resource \"netlify_deploy_key\" \"$1\" {\n    # Exported Attributes\n}",
+        "description": "Creates a new netlify deploy key, typically used by the `netlify_site` resource.",
+        "prefix": "netlify-resource-deploy-key"
+    },
+    "netlify-resource-hook": {
+        "body": "resource \"netlify_hook\" \"$1\" {\n    # data - (Required) object/hash of data to be sent along with the webhook. this varies depending on the `type`\n    data = \"\"\n\n    # event - (Required) - when to send the data, for example on deploy create, succeed, fail, etc\n    event = \"\"\n\n    # type - (Required) - type of outgoing webhook, for example slack, email, github commit status, etc\n    type = \"\"\n\n    # site_id - (Required) - id of the site on netlify\n    site_id = \"\"\n\n    # Exported Attributes\n}",
+        "description": "An [outgoing webhook](https://www.netlify.com/docs/webhooks/#outgoing-webhooks-and-notifications), typically used to netlify a third party service about deploys.",
+        "prefix": "netlify-resource-hook"
+    },
+    "netlify-resource-site": {
+        "body": "resource \"netlify_site\" \"$1\" {\n    # repo - (Required) See [Repository](#repo)\n    repo = \"\"\n\n    # name - (Required) - name of your site on netlify\n    name = \"\"\n\n    # custom_domain - (Optional) - a custom domain name, must be configured using a cname in accordance with [netlify's docs](https://www.netlify.com/docs/custom-domains)\n    custom_domain = \"\"\n\n    # deploy_url - (Optional) \n    deploy_url = \"\"\n\n    # Exported Attributes\n}",
+        "description": "Primary settings for the Netlify site - should contain the bulk of your configuration. Allows configuration of most aspects of your Netlify site.",
+        "prefix": "netlify-resource-site"
+    }
+}

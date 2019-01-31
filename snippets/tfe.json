@@ -1,0 +1,92 @@
+{
+    "datasource-tfe-ssh-key": {
+        "body": "data \"tfe_ssh_key\" \"$1\" {\n    # organization - (Required) Name of the organization.\n    organization = \"\"\n\n    # name - (Required) Name of the SSH key.\n    name = \"\"\n\n    # Exported Attributes\n    # \"id\" - The ID of the SSH key.\n}",
+        "description": "Use this data source to get information about a SSH key.",
+        "prefix": "datasource-tfe-ssh-key"
+    },
+    "datasource-tfe-team-access": {
+        "body": "data \"tfe_team_access\" \"$1\" {\n    # workspace_id - (Required) ID of the workspace.\n    workspace_id = \"\"\n\n    # team_id - (Required) ID of the team.\n    team_id = \"\"\n\n    # Exported Attributes\n    # \"id\" The team access ID.\n    # \"access\" - The type of access granted.\n}",
+        "description": "Use this data source to get information about team permissions for a workspace.",
+        "prefix": "datasource-tfe-team-access"
+    },
+    "datasource-tfe-team-x": {
+        "body": "data \"tfe_team\" \"$1\" {\n    # organization - (Required) Name of the organization.\n    organization = \"\"\n\n    # name - (Required) Name of the team.\n    name = \"\"\n\n    # Exported Attributes\n    # \"id\" - The ID of the team.\n}",
+        "description": "Use this data source to get information about a team.",
+        "prefix": "datasource-tfe-team-x"
+    },
+    "datasource-tfe-workspace-ids": {
+        "body": "data \"tfe_workspace_ids\" \"$1\" {\n    # organization - (Required) Name of the organization.\n    organization = \"\"\n\n    # names - (Required) A list of workspace names.\n    names = \"\"\n\n    # Exported Attributes\n    # \"ids\" - A map of the workspace names and their IDs within Terraform. This is a\n    # \"external_ids\" - A map of workspace names and their external IDs.\n}",
+        "description": "Use this data source to get a map of (external) workspace IDs.",
+        "prefix": "datasource-tfe-workspace-ids"
+    },
+    "datasource-tfe-workspace-x": {
+        "body": "data \"tfe_workspace\" \"$1\" {\n    # organization - (Required) Name of the organization.\n    organization = \"\"\n\n    # name - (Required) Name of the workspace.\n    name = \"\"\n\n    # Exported Attributes\n    # \"id\" - The ID of the workspace within Terraform. This is a custom ID that is\n    # \"auto_apply\" - Indicates whether to automatically apply changes when a\n    # \"ssh_key_id\" - The ID of an SSH key assigned to the workspace.\n    # \"queue_all_runs\" - Indicates whether all runs should be queued.\n    # \"terraform_version\" - The version of Terraform used for this workspace.\n    # \"working_directory\" - A relative path that Terraform will execute within.\n    # \"vcs_repo\" - Settings for the workspace's VCS repository.\n    # \"external_id\" - The external ID of the workspace within Terraform Enterprise.\n    # \"identifier\" - A reference to your VCS repository in the format \":org/:repo\"\n    # \"ingress_submodules\" - Indicates whether submodules should be fetched when\n    # \"oauth_token_id\" - OAuth token ID of the configured VCS connection.\n}",
+        "description": "Use this data source to get information about a workspace.",
+        "prefix": "datasource-tfe-workspace-x"
+    },
+    "resource-tfe-oauth-client": {
+        "body": "resource \"tfe_oauth_client\" \"$1\" {\n    # service_provider - (Required) The VCS provider being connected with. Valid\n    service_provider = \"\"\n\n    # oauth_token - (Required) The token string you were given by your VCS provider.\n    oauth_token = \"\"\n\n    # http_url - (Required) The homepage of your VCS provider (e.g.\n    http_url = \"\"\n\n    # api_url - (Required) The base URL of your VCS provider's API (e.g.\n    api_url = \"\"\n\n    # organization - (Required) Name of the organization.\n    organization = \"\"\n\n    # gitlab_community_edition - (Optional) `gitlab_community_edition`, or `gitlab_enterprise_edition`.\n    gitlab_community_edition = \"\"\n\n    # Exported Attributes\n    # \"id\" - The ID of the OAuth client.\n    # \"oauth_token_id\" - The ID of the OAuth token associated with the OAuth client.\n}",
+        "description": "An OAuth Client represents the connection between an organization and a VCS\nprovider. -> **Note:** This resource does not currently support creation of Bitbucket\n  Server OAuth clients.",
+        "prefix": "resource-tfe-oauth-client"
+    },
+    "resource-tfe-organization-token": {
+        "body": "resource \"tfe_organization_token\" \"$1\" {\n    # organization - (Required) Name of the organization.\n    organization = \"\"\n\n    # force_regenerate - (Optional) If set to `true`, a new token will be\n    force_regenerate = \"\"\n\n    # Exported Attributes\n    # \"id\" - The ID of the token.\n    # \"token\" - The generated token.\n}",
+        "description": "Generates a new organization token, replacing any existing token. This token\ncan be used to act as the organization service account.",
+        "prefix": "resource-tfe-organization-token"
+    },
+    "resource-tfe-organization-x": {
+        "body": "resource \"tfe_organization\" \"$1\" {\n    # email - (Required) Admin email address.\n    email = \"\"\n\n    # name - (Required) Name of the organization.\n    name = \"\"\n\n    # session_timeout_minutes - (Optional) Session timeout after inactivity.\n    session_timeout_minutes = \"\"\n\n    # session_remember_minutes - (Optional) Session expiration. Defaults to\n    session_remember_minutes = \"\"\n\n    # collaborator_auth_policy - (Optional) Authentication policy (`password`\n    collaborator_auth_policy = \"\"\n\n    # Exported Attributes\n    # \"id\" - The name of the organization.\n}",
+        "description": "Manages organizations.",
+        "prefix": "resource-tfe-organization-x"
+    },
+    "resource-tfe-sentinel-policy": {
+        "body": "resource \"tfe_sentinel_policy\" \"$1\" {\n    # enforce_mode - (Required) The enforcement level of the policy. Valid\n    enforce_mode = \"\"\n\n    # policy - (Required) The actual policy itself.\n    policy = \"\"\n\n    # organization - (Required) Name of the organization.\n    organization = \"\"\n\n    # name - (Required) Name of the policy.\n    name = \"\"\n\n    # description - (Optional) A description of the policy's purpose.\n    description = \"\"\n\n    # Exported Attributes\n    # \"id\" - The ID of the policy.\n}",
+        "description": "Sentinel Policy as Code is an embedded policy as code framework integrated\nwith Terraform Enterprise. Policies are configured on a per-organization level and are organized and\ngrouped into policy sets, which define the workspaces on which policies are\nenforced during runs.",
+        "prefix": "resource-tfe-sentinel-policy"
+    },
+    "resource-tfe-ssh-key": {
+        "body": "resource \"tfe_ssh_key\" \"$1\" {\n    # key - (Required) The text of the SSH private key.\n    key = \"\"\n\n    # organization - (Required) Name of the organization.\n    organization = \"\"\n\n    # name - (Required) Name to identify the SSH key.\n    name = \"\"\n\n    # Exported Attributes\n    # \"id\" The ID of the SSH key.\n}",
+        "description": "This resource represents an SSH key which includes a name and the SSH private\nkey. An organization can have multiple SSH keys available.",
+        "prefix": "resource-tfe-ssh-key"
+    },
+    "resource-tfe-team-access": {
+        "body": "resource \"tfe_team_access\" \"$1\" {\n    # workspace_id - (Required) Workspace ID to which the team will be added.\n    workspace_id = \"\"\n\n    # team_id - (Required) ID of the team to add to the workspace.\n    team_id = \"\"\n\n    # access - (Required) Type of access to grant. Valid values are `admin`,\n    access = \"\"\n\n    # read - (Optional) `read` or `write`.\n    read = \"\"\n\n    # Exported Attributes\n    # \"id\" The team access ID.\n}",
+        "description": "Associate a team to permissions on a workspace.",
+        "prefix": "resource-tfe-team-access"
+    },
+    "resource-tfe-team-member-x": {
+        "body": "resource \"tfe_team_member\" \"$1\" {\n    # username - (Required) Name of the user to add.\n    username = \"\"\n\n    # team_id - (Required) ID of the team.\n    team_id = \"\"\n\n    # Exported Attributes\n}",
+        "description": "Add or remove a user from a team. ~> **NOTE** on managing team memberships: Terraform currently provides two\nresources for managing team memberships. The [tfe_team_member](team_member.html)\nresource can be used multiple times as it manages the team membership for a\nsingle user.  The [tfe_team_members](team_members.html) resource, on the other\nhand, is used to manage all team memberships for a specific team and can only be\nused once. Both resources cannot be used for the same team simultaneously.",
+        "prefix": "resource-tfe-team-member-x"
+    },
+    "resource-tfe-team-members": {
+        "body": "resource \"tfe_team_members\" \"$1\" {\n    # usernames - (Required) Names of the users to add.\n    usernames = \"\"\n\n    # team_id - (Required) ID of the team.\n    team_id = \"\"\n\n    # Exported Attributes\n    # \"id\" - The ID of the team.\n}",
+        "description": "Manages users in a team. ~> **NOTE** on managing team memberships: Terraform currently provides two\nresources for managing team memberships. The [tfe_team_member](team_member.html)\nresource can be used multiple times as it manages the team membership for a\nsingle user.  The [tfe_team_members](team_members.html) resource, on the other\nhand, is used to manage all team memberships for a specific team and can only be\nused once. Both resources cannot be used for the same team simultaneously.",
+        "prefix": "resource-tfe-team-members"
+    },
+    "resource-tfe-team-token": {
+        "body": "resource \"tfe_team_token\" \"$1\" {\n    # team_id - (Required) ID of the team.\n    team_id = \"\"\n\n    # force_regenerate - (Optional) If set to `true`, a new token will be\n    force_regenerate = \"\"\n\n    # Exported Attributes\n    # \"id\" - The ID of the token.\n    # \"token\" - The generated token.\n}",
+        "description": "Generates a new team token and overrides existing token if one exists.",
+        "prefix": "resource-tfe-team-token"
+    },
+    "resource-tfe-team-x": {
+        "body": "resource \"tfe_team\" \"$1\" {\n    # organization - (Required) Name of the organization.\n    organization = \"\"\n\n    # name - (Required) Name of the team.\n    name = \"\"\n\n    # Exported Attributes\n    # \"id\" The ID of the team.\n}",
+        "description": "Manages teams.",
+        "prefix": "resource-tfe-team-x"
+    },
+    "resource-tfe-tfe_policy_set": {
+        "body": "resource \"tfe_policy_set\" \"$1\" {\n    # policy_ids - (Required) A list of Sentinel policy IDs.\n    policy_ids = \"\"\n\n    # organization - (Required) Name of the organization.\n    organization = \"\"\n\n    # name - (Required) Name of the policy set.\n    name = \"\"\n\n    # description - (Optional) A description of the policy set's purpose.\n    description = \"\"\n\n    # global - (Optional) Whether or not policies in this set will apply to\n    global = \"\"\n\n    # workspace_external_ids - (Optional) `workspace_external_ids` are provided.\n    workspace_external_ids = \"\"\n\n    # workspace_external_ids - (Optional) A list of workspace external IDs. If\n    workspace_external_ids = \"\"\n\n    # Exported Attributes\n    # \"id\" - The ID of the policy set.\n}",
+        "description": "Sentinel Policy as Code is an embedded policy as code framework integrated\nwith Terraform Enterprise. Policy sets are groups of policies that are applied together to related workspaces.\nBy using policy sets, you can group your policies by attributes such as environment\nor region. Individual policies that are members of policy sets will only be checked\nfor workspaces that the policy set is attached to.",
+        "prefix": "resource-tfe-tfe_policy_set"
+    },
+    "resource-tfe-variable": {
+        "body": "resource \"tfe_variable\" \"$1\" {\n    # workspace_id - (Required) ID of the workspace that owns the variable.\n    workspace_id = \"\"\n\n    # category - (Required) Whether this is a Terraform or environment variable.\n    category = \"\"\n\n    # value - (Required) Value of the variable.\n    value = \"\"\n\n    # key - (Required) Name of the variable.\n    key = \"\"\n\n    # hcl - (Optional) Whether to evaluate the value of the variable as a string\n    hcl = \"\"\n\n    # sensitive - (Optional) Whether the value is sensitive. If true then the\n    sensitive = \"\"\n\n    # Exported Attributes\n    # \"id\" - The ID of the variable.\n}",
+        "description": "Creates, updates and destroys variables.",
+        "prefix": "resource-tfe-variable"
+    },
+    "resource-tfe-workspace": {
+        "body": "resource \"tfe_workspace\" \"$1\" {\n    # oauth_token_id - (Required) Token ID of the VCS Connection (OAuth Conection\n    oauth_token_id = \"\"\n\n    # identifier - (Required) A reference to your VCS repository in the format\n    identifier = \"\"\n\n    # organization - (Required) Name of the organization.\n    organization = \"\"\n\n    # name - (Required) Name of the workspace.\n    name = \"\"\n\n    # auto_apply - (Optional) Whether to automatically apply changes when a\n    auto_apply = \"\"\n\n    # ssh_key_id - (Optional) The ID of an SSH key to assign to the workspace.\n    ssh_key_id = \"\"\n\n    # queue_all_runs - (Optional) Whether all runs should be queued. When set\n    queue_all_runs = \"\"\n\n    # terraform_version - (Optional) The version of Terraform to use for this\n    terraform_version = \"\"\n\n    # working_directory - (Optional) A relative path that Terraform will execute\n    working_directory = \"\"\n\n    # vcs_repo - (Optional) Settings for the workspace's VCS repository.\n    vcs_repo = \"\"\n\n    # branch - (Optional) The repository branch that Terraform will execute from.\n    branch = \"\"\n\n    # ingress_submodules - (Optional) Whether submodules should be fetched when\n    ingress_submodules = \"\"\n\n    # Exported Attributes\n    # \"id\" - The ID of the workspace within Terraform. This is a custom ID that is\n    # \"external_id\" - The external ID of the workspace within Terraform Enterprise.\n}",
+        "description": "Provides a workspace resource.",
+        "prefix": "resource-tfe-workspace"
+    }
+}

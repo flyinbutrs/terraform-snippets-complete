@@ -5,7 +5,7 @@
         "prefix": "influxdb-resource-continuous_query"
     },
     "influxdb-resource-database": {
-        "body": "resource \"influxdb_database\" \"$1\" {\n    # name - (Required) The name for the database. This must be unique on the\n    name = \"\"\n\n    # Exported Attributes\n}",
+        "body": "resource \"influxdb_database\" \"$1\" {\n    # duration - (Required) The duration for retention policy, format of duration can be found at InfluxDB Documentation\n    duration = \"\"\n\n    # name - (Required) The name of the retention policy\n    name = \"\"\n\n    # name - (Required) The name for the database. This must be unique on the\n    name = \"\"\n\n    # retention_policies - (Optional) A list of retention policies for specified database\n    retention_policies = \"\"\n\n    # replication - (Optional) Determines how many copies of data points are stored in a cluster. Not applicable for single node / Open Source version of InfluxDB. Default value of 1.\n    replication = \"\"\n\n    # default - (Optional) Marks current retention policy as default. Default value is false.\n    default = \"\"\n\n    # Exported Attributes\n}",
         "description": "The database resource allows a database to be created on an InfluxDB server.",
         "prefix": "influxdb-resource-database"
     },

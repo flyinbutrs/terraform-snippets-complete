@@ -14,9 +14,19 @@
         "description": "Configures an Icinga2 hostgroup resource. This allows hostgroup to be configured, updated,\nand deleted.",
         "prefix": "icinga2-resource-hostgroup"
     },
+    "icinga2-resource-notifiation": {
+        "body": "resource \"notifiation\" \"$1\" {\n    # users - (Required) List of users to notification.\n    users = \"\"\n\n    # command - (Required) Notification command to use.\n    command = \"\"\n\n    # hostname - (Required) The hostname the notification applies to.\n    hostname = \"\"\n\n    # servicename - (Optional) Service to send notification for.\n    servicename = \"\"\n\n    # Exported Attributes\n}",
+        "description": "Configures an Icinga2 notification resource. This allows notifications to be configured, updated,\nand deleted.",
+        "prefix": "icinga2-resource-notifiation"
+    },
     "icinga2-resource-service": {
         "body": "resource \"service\" \"$1\" {\n    # hostname - (Required) The host to check the service's status on\n    hostname = \"\"\n\n    # check_command - (Required) The name of an existing Icinga2 CheckCommand object that is used to determine if the service is available on the host.\n    check_command = \"\"\n\n    # name - (Required) The name of the Service object.\n    name = \"\"\n\n    # Exported Attributes\n}",
         "description": "Configures an Icinga2 service resource. This allows service to be configured, updated,\nand deleted.",
         "prefix": "icinga2-resource-service"
+    },
+    "icinga2-resource-user": {
+        "body": "resource \"user\" \"$1\" {\n    # name - (Required) The user.\n    name = \"\"\n\n    # email - (Optional) An email string for this user. Useful for notification commands.\n    email = \"\"\n\n    # Exported Attributes\n}",
+        "description": "Configures an Icinga2 user resource. This allows users to be configured, updated,\nand deleted.",
+        "prefix": "icinga2-resource-user"
     }
 }

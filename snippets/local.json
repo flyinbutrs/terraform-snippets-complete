@@ -1,4 +1,9 @@
 {
+    "local-datasource-file": {
+        "body": "data \"local_file\" \"$1\" {\n    # filename - (Required) The path to the file that will be read. The data\n    filename = \"\"\n\n    # Exported Attributes\n}",
+        "description": "`local_file` reads a file from the local filesystem.",
+        "prefix": "local-datasource-file"
+    },
     "local-resource-file": {
         "body": "resource \"local_file\" \"$1\" {\n    # filename - (Required) The path of the file to create.\n    filename = \"\"\n\n    # content - (Required) The content of file to create.\n    content = \"\"\n\n    # Exported Attributes\n}",
         "description": "Generates a local file with the given content. ~> **Note** When working with local files, Terraform will detect the resource\nas having been deleted each time a configuration is applied on a new machine\nwhere the file is not present and will generate a diff to re-create it. This\nmay cause \"noise\" in diffs in environments where configurations are routinely\napplied by many different users or within automation systems.",

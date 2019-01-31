@@ -1,7 +1,52 @@
 {
+    "nomad-datasource-deployments": {
+        "body": "data \"nomad_deployments\" \"$1\" {\n    # Exported Attributes\n}",
+        "description": "Retrieve a list of deployments in Nomad.",
+        "prefix": "nomad-datasource-deployments"
+    },
+    "nomad-datasource-job": {
+        "body": "data \"nomad_job\" \"$1\" {\n    # job_id - (Optional) `job_id`: `(string)` ID of the job.\n    job_id = \"\"\n\n    # Exported Attributes\n    # \"name\": \"(string)\" Name of the job.\n    # \"type\": \"(string)\" Scheduler type used during job creation.\n    # \"version\": \"(integer)\" Version of the specified job.\n    # \"namespace\": \"(string)\" Namespace of the specified job.\n    # \"region\": \"(string)\" Region where the Nomad cluster resides.\n    # \"datacenters\": \"(list of strings)\" Datacenters allowed to run the specified job.\n    # \"status\": \"(string)\" Execution status of the specified job.\n    # \"status_description\": \"(string)\" Status description of the specified job.\n    # \"submit_time\": \"(integer)\" Job submission date.\n    # \"create_index\": \"(integer)\" Creation Index.\n    # \"modify_index\": \"(integer)\" Modification Index.\n    # \"job_modify_index\": \"(integer)\" Job modify index (used for version verification).\n    # \"stop\": \"(boolean)\" Job enabled status.\n    # \"priority\": \"(integer)\" Used for the prioritization of scheduling and resource access.\n    # \"parent_id\": \"(string)\" Job's parent ID.\n    # \"task_groups\": \"(list of maps)\" A list of of the job's task groups.\n    # \"placed_canaries\": \"(string)\"\n    # \"auto_revert\": \"(boolean)\"\n    # \"promoted\": \"(boolean)\"\n    # \"desired_canaries\": \"(integer)\"\n    # \"desired_total\": \"(integer)\"\n    # \"placed_alloc\": \"(integer)\"\n    # \"healthy_alloc\": \"(integer)\"\n    # \"unhealthy_alloc\": \"(integer)\"\n    # \"stable\": \"(boolean)\" Job stability status.\n    # \"all_at_once\": \"(boolean)\"  If the scheduler can make partial placements on oversubscribed nodes.\n    # \"contraints\": \"(list of maps)\" Job constraints.\n    # \"ltarget\": \"(string)\" Attribute being constrained.\n    # \"rtarget\": \"(string)\" Constraint value.\n    # \"operand\": \"(string)\" Operator used to compare the attribute to the constraint.\n    # \"update_strategy\": \"(list of maps)\" Job's update strategy which controls rolling updates and canary deployments.\n    # \"stagger\": \"(string)\" Delay between migrating job allocations off cluster nodes marked for draining.\n    # \"max_parallel\": \"(integer)\" Number of task groups that can be updated at the same time.\n    # \"health_check\": \"(string)\" Type of mechanism in which allocations health is determined.\n    # \"min_healthy_time\": \"(string)\" Minimum time the job allocation must be in the healthy state.\n    # \"healthy_deadline\": \"(string)\" Deadline in which the allocation must be marked as healthy after which the allocation is automatically transitioned to unhealthy.\n    # \"auto_revert\": \"(boolean)\" Specifies if the job should auto-revert to the last stable job on deployment failure.\n    # \"canary\": \"(integer)\" Number of canary jobs that need to reach healthy status before unblocking rolling updates.\n    # \"periodic_config\": \"(list of maps)\" Job's periodic configuration (time based scheduling).\n    # \"enabled\": \"(boolean)\" If periodic scheduling is enabled for the specified job.\n    # \"spec\": \"(string)\"\n    # \"spec_type\": \"(string)\"\n    # \"prohibit_overlap\": \"(boolean)\"  If the specified job should wait until previous instances of the job have completed.\n    # \"timezone\": \"(string)\" Time zone to evaluate the next launch interval against.\n}",
+        "description": "Get information on an job ID. The aim of this datasource is to enable\nyou to act on various settings and states of a particular job. An error is triggered if zero or more than one result is returned by the query.",
+        "prefix": "nomad-datasource-job"
+    },
+    "nomad-datasource-namespaces": {
+        "body": "data \"nomad_namespaces\" \"$1\" {\n    # Exported Attributes\n}",
+        "description": "Retrieve a list of namespaces available in Nomad.",
+        "prefix": "nomad-datasource-namespaces"
+    },
+    "nomad-datasource-regions": {
+        "body": "data \"nomad_regions\" \"$1\" {\n    # Exported Attributes\n}",
+        "description": "Retrieve a list of regions available in Nomad.",
+        "prefix": "nomad-datasource-regions"
+    },
+    "nomad-resource-acl-policy": {
+        "body": "resource \"nomad_acl_policy\" \"$1\" {\n    # name - (Optional) A unique name for the policy.\n    name = \"\"\n\n    # rules_hcl - (Optional) The contents of the policy to register,\n    rules_hcl = \"\"\n\n    # description - (Optional) A description of the policy.\n    description = \"\"\n\n    # Exported Attributes\n}",
+        "description": "Manages an ACL policy registered in Nomad.",
+        "prefix": "nomad-resource-acl-policy"
+    },
+    "nomad-resource-acl-token": {
+        "body": "resource \"nomad_acl_token\" \"$1\" {\n    # type - (Optional) The type of token this is. Use `client` for tokens that will have policies associated with them. Use `management` for tokens that can perform any action.\n    type = \"\"\n\n    # name - (Optional) A human-friendly name for this token.\n    name = \"\"\n\n    # policies - (Optional) A set of policy names to associate with this token. Must be set on `client`-type tokens, must not be set on `management`-type tokens. Policies do not need to exist before being used here.\n    policies = \"\"\n\n    # global - (Optional) Whether the token should be replicated to all regions, or if it will only be used in the region it was created in.\n    global = \"\"\n\n    # accessor_id - (Optional) A non-sensitive identifier for this token that can be logged and shared safely without granting any access to the cluster.\n    accessor_id = \"\"\n\n    # secret_id - (Optional) The token value itself, which is presented for access to the cluster.\n    secret_id = \"\"\n\n    # Exported Attributes\n}",
+        "description": "Manages an ACL token in Nomad. ~> **Warning:** this resource will store any tokens it creates in\n  Terraform's state file. Take care to\n  [protect your state file](/docs/state/sensitive-data.html).",
+        "prefix": "nomad-resource-acl-token"
+    },
     "nomad-resource-job": {
-        "body": "resource \"nomad_job\" \"$1\" {\n    # jobspec - (Optional) The contents of the jobspec to register.\n    jobspec = \"\"\n\n    # deregister_on_destroy - (Optional) Determines if the job will be deregistered when this resource is destroyed in Terraform.\n    deregister_on_destroy = \"\"\n\n    # deregister_on_id_change - (Optional) Determines if the job will be deregistered if the ID of the job in the jobspec changes.\n    deregister_on_id_change = \"\"\n\n    # Exported Attributes\n}",
+        "body": "resource \"nomad_job\" \"$1\" {\n    # jobspec - (Optional) The contents of the jobspec to register.\n    jobspec = \"\"\n\n    # deregister_on_destroy - (Optional) Determines if the job will be deregistered when this resource is destroyed in Terraform.\n    deregister_on_destroy = \"\"\n\n    # deregister_on_id_change - (Optional) Determines if the job will be deregistered if the ID of the job in the jobspec changes.\n    deregister_on_id_change = \"\"\n\n    # policy_override - (Optional) Determines if the job will override any soft-mandatory Sentinel policies and register even if they fail.\n    policy_override = \"\"\n\n    # json - (Optional) Set this to true if your jobspec is stractured with JSON instead of the default HCL.\n    json = \"\"\n\n    # Exported Attributes\n}",
         "description": "Manages a job registered in Nomad. This can be used to initialize your cluster with system jobs, common services,\nand more. In day to day Nomad use it is common for developers to submit jobs to\nNomad directly, such as for general app deployment. In addition to these apps, a\nNomad cluster often runs core system services that are ideally setup during\ninfrastructure creation. This resource is ideal for the latter type of job, but\ncan be used to manage any job within Nomad.",
         "prefix": "nomad-resource-job"
+    },
+    "nomad-resource-namespace": {
+        "body": "resource \"nomad_namespace\" \"$1\" {\n    # name - (Optional) A unique name for the namespace.\n    name = \"\"\n\n    # description - (Optional) A description of the namespace.\n    description = \"\"\n\n    # Exported Attributes\n}",
+        "description": "Provisions a namespace within a Nomad cluster. ~> **Enterprise Only!** This API endpoint and functionality only exists in\nNomad Enterprise. This is not present in the open source version of Nomad.",
+        "prefix": "nomad-resource-namespace"
+    },
+    "nomad-resource-quota-specification": {
+        "body": "resource \"nomad_quota_specification\" \"$1\" {\n    # name - (Optional) A unique name for the quota specification.\n    name = \"\"\n\n    # description - (Optional) A description of the quota specification.\n    description = \"\"\n\n    # limits - (Optional) A block of quota limits to enforce. Can\n    limits = \"\"\n\n    # Exported Attributes\n}",
+        "description": "Manages a quota specification in a Nomad cluster.",
+        "prefix": "nomad-resource-quota-specification"
+    },
+    "nomad-resource-sentinel-policy": {
+        "body": "resource \"nomad_sentinel_policy\" \"$1\" {\n    # name - (Optional) A unique name for the policy.\n    name = \"\"\n\n    # policy - (Optional) The contents of the policy to register.\n    policy = \"\"\n\n    # enforcement_level - (Optional) The [enforcement level][enforcement-level]\n    enforcement_level = \"\"\n\n    # scope - (Optional) The [scope][scope] for this policy.\n    scope = \"\"\n\n    # description - (Optional) A description of the policy.\n    description = \"\"\n\n    # Exported Attributes\n}",
+        "description": "Manages a Sentinel policy registered in Nomad. ~> **Enterprise Only!** This API endpoint and functionality only exists in\n   Nomad Enterprise. This is not present in the open source version of Nomad.",
+        "prefix": "nomad-resource-sentinel-policy"
     }
 }

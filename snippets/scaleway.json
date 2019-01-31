@@ -5,38 +5,73 @@
         "prefix": "scaleway-datasource-bootscript"
     },
     "scaleway-datasource-image": {
-        "body": "data \"scaleway_image\" \"$1\" {\n    # architecture - (Required) any supported Scaleway architecture, e.g. `x86_64`, `arm`\n    architecture = \"\"\n\n    # name_filter - (Optional) Regexp to match Image name by\n    name_filter = \"\"\n\n    # name - (Optional) Exact name of desired Image\n    name = \"\"\n\n    # Exported Attributes\n    # \"id\" is set to the ID of the found Image. In addition, the following attributes\nare exported:\n    # \"architecture\" - architecture of the Image, e.g. \"arm\" or \"x86_64\"\n    # \"organization\" - uuid of the organization owning this Image\n    # \"public\" - is this a public bootscript\n    # \"creation_date\" - date when image was created\n}",
+        "body": "data \"scaleway_image\" \"$1\" {\n    # architecture - (Required) any supported Scaleway architecture, e.g. `x86_64`, `arm`\n    architecture = \"\"\n\n    # name_filter - (Optional) Regexp to match Image name by\n    name_filter = \"\"\n\n    # name - (Optional) Exact name of desired Image\n    name = \"\"\n\n    # most_recent - (Optional) Return most recent image if multiple exist. Can not be used together with name_filter.\n    most_recent = \"\"\n\n    # Exported Attributes\n    # \"id\" is set to the ID of the found Image. In addition, the following attributes\nare exported:\n    # \"architecture\" - architecture of the Image, e.g. \"arm\" or \"x86_64\"\n    # \"organization\" - uuid of the organization owning this Image\n    # \"public\" - is this a public image\n    # \"creation_date\" - date when image was created\n}",
         "description": "Use this data source to get the ID of a registered Image for use with the\n`scaleway_server` resource.",
         "prefix": "scaleway-datasource-image"
     },
+    "scaleway-datasource-security-group": {
+        "body": "data \"scaleway_security_group\" \"$1\" {\n    # name - (Required) Exact name of desired Security Group\n    name = \"\"\n\n    # Exported Attributes\n    # \"id\" is set to the ID of the found Image. In addition, the following attributes\nare exported:\n    # \"description\" - description of the security group\n    # \"enable_default_security\" - have default security group rules been added to this security group?\n}",
+        "description": "Gets information about a Security Group.",
+        "prefix": "scaleway-datasource-security-group"
+    },
+    "scaleway-datasource-volume": {
+        "body": "data \"scaleway_volume\" \"$1\" {\n    # name - (Required) Exact name of the Volume.\n    name = \"\"\n\n    # Exported Attributes\n    # \"id\" is set to the ID of the found Volume. In addition, the following attributes\nare exported:\n    # \"size_in_gb\" - (Required) size of the volume in GB\n    # \"type\" - The type of volume this is, such as \"l_ssd\".\n    # \"server\" - The ID of the Server which this Volume is currently attached to.\n}",
+        "description": "Gets information about a Volume.",
+        "prefix": "scaleway-datasource-volume"
+    },
+    "scaleway-resource-bucket": {
+        "body": "resource \"bucket\" \"$1\" {\n    # name - (Required) Name of the Scaleway objectstorage bucket\n    name = \"\"\n\n    # Exported Attributes\n    # \"name\" - Name of the resource\n}",
+        "description": "Creates Scaleway object storage buckets.",
+        "prefix": "scaleway-resource-bucket"
+    },
     "scaleway-resource-ip": {
-        "body": "resource \"ip\" \"$1\" {\n    # server - (Optional) ID of server to associate IP with\n    server = \"\"\n\n    # Exported Attributes\n    # \"id\" - id of the new resource\n    # \"ip\" - IP of the new resource\n}",
+        "body": "resource \"ip\" \"$1\" {\n    # server - (Optional) ID of server to associate IP with\n    server = \"\"\n\n    # reverse - (Optional) (Deprecated) Please us the scaleway_ip_reverse_dns resource instead.\n    reverse = \"\"\n\n    # Exported Attributes\n    # \"id\" - ID of the new resource\n    # \"ip\" - IP of the new resource\n    # \"server\" - ID of the associated server resource\n    # \"reverse\" - reverse DNS setting of the IP resource\n}",
         "description": "Provides IPs for servers. This allows IPs to be created, updated and deleted.\nFor additional details please refer to [API documentation](https://developer.scaleway.com/#ips).",
         "prefix": "scaleway-resource-ip"
     },
-    "scaleway-resource-security_group": {
-        "body": "resource \"security_group\" \"$1\" {\n    # description - (Required) description of security group\n    description = \"\"\n\n    # name - (Required) name of security group\n    name = \"\"\n\n    # Exported Attributes\n    # \"id\" - id of the new resource\n}",
-        "description": "Provides security groups. This allows security groups to be created, updated and deleted.\nFor additional details please refer to [API documentation](https://developer.scaleway.com/#security-groups).",
-        "prefix": "scaleway-resource-security_group"
+    "scaleway-resource-ip-reverse-dns": {
+        "body": "resource \"ip_reverse_dns\" \"$1\" {\n    # reverse - (Required) Reverse DNS of the IP\n    reverse = \"\"\n\n    # ip - (Required) ID or Address of IP \n    ip = \"\"\n\n    # Exported Attributes\n    # \"id\" - ID of the new resource\n    # \"reverse\" - reverse DNS setting of the IP resource\n}",
+        "description": "Provides reverse DNS settings for IPs.\nFor additional details please refer to [API documentation](https://developer.scaleway.com/#ips).",
+        "prefix": "scaleway-resource-ip-reverse-dns"
     },
-    "scaleway-resource-security_group_rule": {
+    "scaleway-resource-security-group-rule": {
         "body": "resource \"security_group_rule\" \"$1\" {\n    # protocol - (Required) protocol of rule (`ICMP`, `TCP`, `UDP`)\n    protocol = \"\"\n\n    # ip_range - (Required) ip_range of rule\n    ip_range = \"\"\n\n    # direction - (Required) direction of rule (`inbound`, `outbound`)\n    direction = \"\"\n\n    # action - (Required) action of rule (`accept`, `drop`)\n    action = \"\"\n\n    # security_group - (Required) the security group which should be associated with this rule\n    security_group = \"\"\n\n    # port - (Optional) port of the rule\n    port = \"\"\n\n    # Exported Attributes\n    # \"id\" - id of the new resource\n}",
         "description": "Provides security group rules. This allows security group rules to be created, updated and deleted.\nFor additional details please refer to [API documentation](https://developer.scaleway.com/#security-groups-manage-rules).",
-        "prefix": "scaleway-resource-security_group_rule"
+        "prefix": "scaleway-resource-security-group-rule"
+    },
+    "scaleway-resource-security-group-x": {
+        "body": "resource \"security_group\" \"$1\" {\n    # description - (Required) description of security group\n    description = \"\"\n\n    # name - (Required) name of security group\n    name = \"\"\n\n    # enable_default_security - (Optional) default: true. Add default security group rules\n    enable_default_security = \"\"\n\n    # stateful - (Optional) default: false. Mark the security group as stateful. Note that stateful security groups can not be associated with bare metal servers\n    stateful = \"\"\n\n    # inbound_default_policy - (Optional) default policy for inbound traffic. Can be one of accept or drop\n    inbound_default_policy = \"\"\n\n    # outbound_default_policy - (Optional) default policy for outbound traffic. Can be one of accept or drop\n    outbound_default_policy = \"\"\n\n    # Exported Attributes\n    # \"id\" - id of the new resource\n}",
+        "description": "Provides security groups. This allows security groups to be created, updated and deleted.\nFor additional details please refer to [API documentation](https://developer.scaleway.com/#security-groups).",
+        "prefix": "scaleway-resource-security-group-x"
     },
     "scaleway-resource-server": {
-        "body": "resource \"server\" \"$1\" {\n    # type - (Required) type of server\n    type = \"\"\n\n    # image - (Required) base image of server\n    image = \"\"\n\n    # name - (Required) name of server\n    name = \"\"\n\n    # bootscript - (Optional) server bootscript\n    bootscript = \"\"\n\n    # tags - (Optional) list of tags for server\n    tags = \"\"\n\n    # dynamic_ip_required - (Optional) make server publicly available\n    dynamic_ip_required = \"\"\n\n    # security_group - (Optional) assign security group to server\n    security_group = \"\"\n\n    # volume - (Optional) attach additional volumes to your instance (see below)\n    volume = \"\"\n\n    # state - (Optional) allows you to define the desired state of your server. Valid values include (`stopped`, `running`)\n    state = \"\"\n\n    # state_detail - (Optional) (Read Only) contains details from the scaleway API the state of your instance\n    state_detail = \"\"\n\n    # Exported Attributes\n    # \"id\" - id of the new resource\n    # \"private_ip\" - private ip of the new resource\n    # \"public_ip\" - public ip of the new resource\n}",
+        "body": "resource \"server\" \"$1\" {\n    # type - (Required) type of server\n    type = \"\"\n\n    # image - (Required) base image of server\n    image = \"\"\n\n    # name - (Required) name of server\n    name = \"\"\n\n    # bootscript - (Optional) server bootscript\n    bootscript = \"\"\n\n    # boot_type - (Optional) the boot mechanism for this server. Possible values include `local` and `bootscript`\n    boot_type = \"\"\n\n    # tags - (Optional) list of tags for server\n    tags = \"\"\n\n    # dynamic_ip_required - (Optional) make server publicly available\n    dynamic_ip_required = \"\"\n\n    # public_ip - (Optional) set a public ip previously created (a real ip is expected here, not its resource id)\n    public_ip = \"\"\n\n    # security_group - (Optional) assign security group to server\n    security_group = \"\"\n\n    # volume - (Optional) attach additional volumes to your instance (see below)\n    volume = \"\"\n\n    # state - (Optional) allows you to define the desired state of your server. Valid values include (`stopped`, `running`)\n    state = \"\"\n\n    # cloudinit - (Optional) allows you to define cloudinit script for this server\n    cloudinit = \"\"\n\n    # state_detail - (Optional) (Read Only) contains details from the scaleway API the state of your instance\n    state_detail = \"\"\n\n    # Exported Attributes\n    # \"id\" - id of the new resource\n    # \"private_ip\" - private ip of the new resource\n    # \"public_ip\" - public ip of the new resource\n}",
         "description": "Provides servers. This allows servers to be created, updated and deleted.\nFor additional details please refer to [API documentation](https://developer.scaleway.com/#servers).",
         "prefix": "scaleway-resource-server"
     },
-    "scaleway-resource-volume": {
-        "body": "resource \"volume\" \"$1\" {\n    # type - (Required) type of volume\n    type = \"\"\n\n    # size_in_gb - (Required) size of the volume in GB\n    size_in_gb = \"\"\n\n    # name - (Required) name of volume\n    name = \"\"\n\n    # server - (Optional) (Read Only) the `scaleway_server` instance which has this volume mounted right now\n    server = \"\"\n\n    # Exported Attributes\n    # \"id\" - id of the new resource\n}",
-        "description": "Provides volumes. This allows volumes to be created, updated and deleted.\nFor additional details please refer to [API documentation](https://developer.scaleway.com/#volumes).",
-        "prefix": "scaleway-resource-volume"
+    "scaleway-resource-ssh_key": {
+        "body": "resource \"ssh_key\" \"$1\" {\n    # key - (Required) public key of the SSH key to be added\n    key = \"\"\n\n    # Exported Attributes\n    # \"id\" - fingerprint of the SSH key\n}",
+        "description": "Manages user SSH Keys to access servers provisioned on scaleway.\nFor additional details please refer to [API documentation](https://developer.scaleway.com/#users-user-get).",
+        "prefix": "scaleway-resource-ssh_key"
     },
-    "scaleway-resource-volume attachment": {
+    "scaleway-resource-token": {
+        "body": "resource \"token\" \"$1\" {\n    # expires - (Optional) Define if the token should automatically expire or not\n    expires = \"\"\n\n    # email - (Optional) Scaleway account email. Defaults to registered account\n    email = \"\"\n\n    # password - (Optional) Scaleway account password. Required for cross-account token management\n    password = \"\"\n\n    # description - (Optional) Token description\n    description = \"\"\n\n    # Exported Attributes\n    # \"id\" - Token ID - can be used to access scaleway API\n    # \"access_key\" - Token Access Key\n    # \"secret_key\" - Token Secret Key\n    # \"creation_ip\" - IP used to create the token\n    # \"expiration_date\" - Expiration date of token, if expiration is requested\n}",
+        "description": "Provides Tokens for scaleway API access. For additional details please refer to [API documentation](https://developer.scaleway.com/#tokens-tokens-post).",
+        "prefix": "scaleway-resource-token"
+    },
+    "scaleway-resource-user-data": {
+        "body": "resource \"user_data\" \"$1\" {\n    # value - (Required) The value of the user data object\n    value = \"\"\n\n    # key - (Required) The key of the user data object\n    key = \"\"\n\n    # server - (Required) ID of server to associate the user data with\n    server = \"\"\n\n    # Exported Attributes\n}",
+        "description": "Provides user data for servers.\nFor additional details please refer to [API documentation](https://developer.scaleway.com/#user-data).",
+        "prefix": "scaleway-resource-user-data"
+    },
+    "scaleway-resource-volume-attachment": {
         "body": "resource \"attachment\" \"$1\" {\n    # volume - (Required) id of the volume to be attached\n    volume = \"\"\n\n    # server - (Required) id of the server\n    server = \"\"\n\n    # Exported Attributes\n    # \"id\" - id of the new resource\n}",
-        "description": "This allows volumes to be attached to servers. **Warning:** Attaching volumes requires the servers to be powered off. This will lead\nto downtime if the server is already in use.",
-        "prefix": "scaleway-resource-volume attachment"
+        "description": "This allows volumes to be attached to servers. ~> **Warning:** Attaching volumes requires the servers to be powered off. This will lead to downtime if the server is already in use.",
+        "prefix": "scaleway-resource-volume-attachment"
+    },
+    "scaleway-resource-volume-x": {
+        "body": "resource \"volume\" \"$1\" {\n    # type - (Required) type of volume\n    type = \"\"\n\n    # size_in_gb - (Required) size of the volume in GB\n    size_in_gb = \"\"\n\n    # name - (Required) name of volume\n    name = \"\"\n\n    # Exported Attributes\n    # \"id\" - id of the new resource\n    # \"server\" - (Read Only) the \"scaleway_server\" instance which has this volume mounted right now\n}",
+        "description": "Provides volumes. This allows volumes to be created, updated and deleted.\nFor additional details please refer to [API documentation](https://developer.scaleway.com/#volumes).",
+        "prefix": "scaleway-resource-volume-x"
     }
 }

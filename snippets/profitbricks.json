@@ -26,47 +26,47 @@
     },
     "profitbricks-resource-datacenter": {
         "body": "resource \"profitbricks_datacenter\" \"$1\" {\n    # location - (Required) \n    location = \"\"\n\n    # name - (Required) \n    name = \"\"\n\n    # description - (Optional) \n    description = \"\"\n\n    # Exported Attributes\n}",
-        "description": "Manages a Virtual Data Center on ProfitBricks",
+        "description": "Manages a Virtual Data Center on ProfitBricks.",
         "prefix": "profitbricks-resource-datacenter"
     },
     "profitbricks-resource-firewall": {
         "body": "resource \"profitbricks_firewall\" \"$1\" {\n    # Exported Attributes\n}",
-        "description": "Manages a Firewall Rules on ProfitBricks",
+        "description": "Manages a set of firewall rules on ProfitBricks.",
         "prefix": "profitbricks-resource-firewall"
     },
     "profitbricks-resource-group": {
         "body": "resource \"profitbricks_group\" \"$1\" {\n    # Exported Attributes\n}",
-        "description": "Manages groups and group priviliages on ProfitBricks",
+        "description": "Manages groups and group privileges on ProfitBricks.",
         "prefix": "profitbricks-resource-group"
     },
     "profitbricks-resource-ipblock": {
         "body": "resource \"profitbricks_ipblock\" \"$1\" {\n    # Exported Attributes\n}",
-        "description": "Manages a IP Blocks on ProfitBricks",
+        "description": "Manages IP Blocks on ProfitBricks. IP Blocks contain reserved public IP addresses that can be assigned servers or other resources.",
         "prefix": "profitbricks-resource-ipblock"
     },
     "profitbricks-resource-ipfailover": {
         "body": "resource \"ipfailover\" \"$1\" {\n    # Exported Attributes\n}",
-        "description": "Manages Ip Failover groups on ProfitBricks",
+        "description": "Manages IP Failover groups on ProfitBricks.",
         "prefix": "profitbricks-resource-ipfailover"
     },
     "profitbricks-resource-lan": {
         "body": "resource \"profitbricks_lan\" \"$1\" {\n    # Exported Attributes\n}",
-        "description": "Manages a LANs on ProfitBricks",
+        "description": "Manages a LAN on ProfitBricks.",
         "prefix": "profitbricks-resource-lan"
     },
     "profitbricks-resource-loadbalancer": {
         "body": "resource \"profitbricks_loadbalancer\" \"$1\" {\n    # Exported Attributes\n}",
-        "description": "Manages a Load Balancers on ProfitBricks",
+        "description": "Manages a Load Balancer on ProfitBricks.",
         "prefix": "profitbricks-resource-loadbalancer"
     },
     "profitbricks-resource-nic": {
         "body": "resource \"profitbricks_nic\" \"$1\" {\n    # Exported Attributes\n}",
-        "description": "Manages a NICs on ProfitBricks",
+        "description": "Manages a NIC on ProfitBricks.",
         "prefix": "profitbricks-resource-nic"
     },
     "profitbricks-resource-server": {
         "body": "resource \"profitbricks_server\" \"$1\" {\n    # Exported Attributes\n}",
-        "description": "Manages a Servers on ProfitBricks",
+        "description": "Manages a Server on ProfitBricks.",
         "prefix": "profitbricks-resource-server"
     },
     "profitbricks-resource-share": {
@@ -81,12 +81,12 @@
     },
     "profitbricks-resource-user": {
         "body": "resource \"profitbricks_user\" \"$1\" {\n    # Exported Attributes\n}",
-        "description": "Manages users and list users and groups associated.",
+        "description": "Manages users and list users and groups associated with that user.",
         "prefix": "profitbricks-resource-user"
     },
     "profitbricks-resource-volume": {
         "body": "resource \"profitbricks_server\" \"$1\" {\n    # Exported Attributes\n}",
-        "description": "Manages a Volumes on ProfitBricks",
+        "description": "Manages a volume on ProfitBricks.",
         "prefix": "profitbricks-resource-volume"
     }
 }

@@ -1,12 +1,17 @@
 {
-    "logentries-log": {
-        "body": "resource \"logentries_log\" \"$1\" {\n    # name - (Required) The name of the log. The name should be short and descriptive. For example, Apache Access, Hadoop Namenode.\n    name = \"\"\n\n    # logset_id - (Required) The id of the `logentries_logset` resource.\n    logset_id = \"\"\n\n    # retention_period - (Optional) (Optional, default `ACCOUNT_DEFAULT`) The retention period (`1W`, `2W`, `1M`, `2M`, `6M`, `1Y`, `2Y`, `UNLIMITED`, `ACCOUNT_DEFAULT`)\n    retention_period = \"\"\n\n    # source - (Optional) (Optional, default `token`) The log source (`token`, `syslog`, `agent`, `api`). Review the Logentries [log inputs documentation](https://docs.logentries.com/docs/) for more information.\n    source = \"\"\n\n    # type - (Optional) The log type. See the Logentries [log type documentation](https://logentries.com/doc/log-types/) for more information.\n    type = \"\"\n\n    # Exported Attributes\n    # \"token\" - If the log \"source\" is \"token\", this value holds the generated log token that is used by logging clients. See the Logentries [token-based input documentation](https://logentries.com/doc/input-token/) for more information.\n}",
-        "description": "Provides a Logentries log resource.",
-        "prefix": "logentries-log"
+    "logentries-datasource-logentries_logset": {
+        "body": "data \"logentries_logset\" \"$1\" {\n    # Exported Attributes\n    # \"name\" - Name of the LogSet to query.\n}",
+        "description": "Use this data source to get information (like ID) of already existing Logentries LogSets.",
+        "prefix": "logentries-datasource-logentries_logset"
     },
-    "logentries-logset": {
+    "logentries-resource-log-basic": {
+        "body": "resource \"logentries_log\" \"$1\" {\n    # name - (Required) The name of the log. The name should be short and descriptive. For example, Apache Access, Hadoop Namenode.\n    name = \"\"\n\n    # logset_id - (Required) The id of the `logentries_logset` resource.\n    logset_id = \"\"\n\n    # filename - (Optional) the filename of the log.\n    filename = \"\"\n\n    # retention_period - (Optional) (Optional, default `ACCOUNT_DEFAULT`) The retention period (`1W`, `2W`, `1M`, `2M`, `6M`, `1Y`, `2Y`, `UNLIMITED`, `ACCOUNT_DEFAULT`)\n    retention_period = \"\"\n\n    # source - (Optional) (Optional, default `token`) The log source (`token`, `syslog`, `agent`, `api`). Review the Logentries [log inputs documentation](https://docs.logentries.com/docs/) for more information.\n    source = \"\"\n\n    # type - (Optional) The log type. See the Logentries [log type documentation](https://logentries.com/doc/log-types/) for more information.\n    type = \"\"\n\n    # Exported Attributes\n    # \"token\" - If the log \"source\" is \"token\", this value holds the generated log token that is used by logging clients. See the Logentries [token-based input documentation](https://logentries.com/doc/input-token/) for more information.\n}",
+        "description": "Provides a Logentries log resource.",
+        "prefix": "logentries-resource-log-basic"
+    },
+    "logentries-resource-logset": {
         "body": "resource \"logentries_logset\" \"$1\" {\n    # name - (Required) The log set name, which should be short and descriptive. For example, www, db1.\n    name = \"\"\n\n    # location - (Optional) (Optional, default \"nonlocation\") A location is for your convenience only. You can specify a DNS entry such as web.example.com, IP address or arbitrary comment.\n    location = \"\"\n\n    # Exported Attributes\n}",
         "description": "Provides a Logentries logset resource. A logset is a collection of `logentries_log` resources.",
-        "prefix": "logentries-logset"
+        "prefix": "logentries-resource-logset"
     }
 }

@@ -1,0 +1,22 @@
+{
+    "hedvig-access": {
+        "body": "resource \"hedvig_access\" \"$1\" {\n    # type - (Required) The type of address provided in `address`. Can be `host`, `ip` or `iqn`.\n    type = \"\"\n\n    # address - (Required) The actual address that this Access is providing access to.\n    address = \"\"\n\n    # host - (Required) The fully qualified domain name of the controller this Access is associated with.\n    host = \"\"\n\n    # vdisk - (Required) The name of the Vdisk that this Access is associated with.\n    vdisk = \"\"\n\n    # cluster - (Required) The name of the cluster hosting the Access.\n    cluster = \"\"\n\n    # Exported Attributes\n}",
+        "description": "A Hedvig Access adds an address to an ACL of a controller of a vdisk. This allows for management of access resources.",
+        "prefix": "hedvig-access"
+    },
+    "hedvig-lun": {
+        "body": "resource \"hedvig_lun\" \"$1\" {\n    # controller - (Required) The fully qualified domain name for the controller that the LUN is to attach to.\n    controller = \"\"\n\n    # vdisk - (Required) The name of the vdisk the LUN is on.\n    vdisk = \"\"\n\n    # cluster - (Required) The name of the cluster hosting the LUN.\n    cluster = \"\"\n\n    # Exported Attributes\n}",
+        "description": "A Hedvig Lun adds a vdisk resource to a particular controller, enabling the addition of ACL access resources to the vdisk.",
+        "prefix": "hedvig-lun"
+    },
+    "hedvig-mount": {
+        "body": "resource \"hedvig_mount\" \"$1\" {\n    # controller - (Required) The fully qualified domain name for the controller that the Mount is to attach to.\n    controller = \"\"\n\n    # vdisk - (Required) The name of the vdisk the Mount is on.\n    vdisk = \"\"\n\n    # cluster - (Required) The name of the cluster hosting the Mount.\n    cluster = \"\"\n\n    # Exported Attributes\n}",
+        "description": "A Hedvig Mount mounts a vdisk resource with a particular controller. It can then be used to connect ACL access resources to the vdisk as well.",
+        "prefix": "hedvig-mount"
+    },
+    "hedvig-vdisk": {
+        "body": "resource \"hedvig_vdisk\" \"$1\" {\n    # type - (Required) The type of the disk; can be either `BLOCK` or `NFS`\n    type = \"\"\n\n    # size - (Required) The size of the disk in GB.\n    size = \"\"\n\n    # name - (Required) The name to be used by the Vdisk for identification.\n    name = \"\"\n\n    # cluster - (Required) The name of the cluster hosting the Vdisk.\n    cluster = \"\"\n\n    # Exported Attributes\n}",
+        "description": "Manages a Vdisk resource on a Hedvig cluster. For more information, visit [Hedvig's webpage](http://hedvig.io).",
+        "prefix": "hedvig-vdisk"
+    }
+}
