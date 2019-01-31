@@ -5,6 +5,8 @@ import re
 import json
 import click
 import yamldown
+from yaml.parser import ParserError
+from yaml.scanner import ScannerError
 import mistune
 from jinja2 import Template
 
@@ -54,13 +56,21 @@ def process_directory(object_type, prefix, files, snippets):
     """ Processes a single directory """
     for filename in files:
         filepath = "/".join([prefix, filename])
-        with open(filepath, 'r') as f:
-            (yml, markdown) = yamldown.load(f)
+        try:
+            with open(filepath, 'r') as f:
+                (yml, markdown) = yamldown.load(f)
+        except (ParserError, ScannerError):
+            print('Error processing {}.'.format(filepath))
+
+        if not yml:
+            print('Error processing {}.'.format(filepath))
+            continue
 
         if 'sidebar_current' in yml:
             snippet_name = yml['sidebar_current'][5:]
         else:
             snippet_name = yml['side_bar_current'][5:]
+
         resource_name = yml['page_title'].split()[-1]
         doc = process_documentation(markdown)
         arguments = doc.get('Argument Reference', [])
